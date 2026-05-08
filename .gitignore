@@ -1,0 +1,43 @@
+# .NET build outputs
+bin/
+obj/
+out/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+packages/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+*.rsuser
+*.userprefs
+*.pfx
+*.cache
+*.log
+
+# Test Results
+TestResults/
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db
