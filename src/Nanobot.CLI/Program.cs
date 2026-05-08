@@ -26,6 +26,9 @@ switch (command)
     case "version":
         VersionCommand.Execute();
         break;
+    case "cron":
+        await CronCommand.ExecuteAsync(remainingArgs);
+        break;
     case "help" or "--help" or "-h":
         ShowHelp();
         break;
@@ -43,6 +46,13 @@ static void ShowHelp()
     Console.WriteLine("  onboard    Initialize nanobot configuration");
     Console.WriteLine("  agent      Start interactive agent chat");
     Console.WriteLine("  gateway    Start the nanobot gateway");
+    Console.WriteLine("  cron       Manage scheduled jobs");
     Console.WriteLine("  version    Show version information");
     Console.WriteLine("  help       Show this help message");
+    Console.WriteLine();
+    Console.WriteLine("Examples:");
+    Console.WriteLine("  nanobot onboard");
+    Console.WriteLine("  nanobot agent");
+    Console.WriteLine("  nanobot cron list");
+    Console.WriteLine("  nanobot cron add myjob \"0 9 * * *\" \"shell:echo hello\"");
 }
