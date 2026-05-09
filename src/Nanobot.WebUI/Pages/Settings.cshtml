@@ -1,0 +1,110 @@
+@page "/settings"
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="settings-container">
+    <div class="settings-header">
+        <h1>⚙️ Settings</h1>
+    </div>
+    
+    <div class="settings-content">
+        <section class="settings-section">
+            <h2>Configuration</h2>
+            <p class="info-text">Configure nanobot by editing <code>~/.nanobot/config.json</code></p>
+            
+            <div class="config-example">
+                <h3>Example Configuration:</h3>
+                <pre><code>{
+  "providers": {
+    "openai": {
+      "apiKey": "sk-..."
+    }
+  },
+  "agents": {
+    "defaults": {
+      "provider": "openai",
+      "model": "gpt-4-turbo-preview"
+    }
+  },
+  "channels": {
+    "websocket": {
+      "enabled": true
+    }
+  }
+}</code></pre>
+            </div>
+        </section>
+        
+        <section class="settings-section">
+            <h2>Supported Providers</h2>
+            <ul class="provider-list">
+                <li><strong>OpenAI:</strong> gpt-4, gpt-3.5-turbo, etc.</li>
+                <li><strong>Anthropic:</strong> claude-opus-4, claude-3, etc.</li>
+                <li><strong>DeepSeek:</strong> deepseek-chat</li>
+                <li><strong>Ollama:</strong> llama3, mistral, etc. (local)</li>
+                <li><strong>OpenRouter:</strong> Any model from openrouter.ai</li>
+                <li><strong>Azure:</strong> Azure OpenAI Service</li>
+                <li><strong>Qwen:</strong> Alibaba's Qwen models</li>
+                <li><strong>Kimi:</strong> Moonshot AI models</li>
+            </ul>
+        </section>
+        
+        <section class="settings-section">
+            <h2>Environment Variables</h2>
+            <ul class="env-list">
+                <li><code>OLLAMA_HOST</code> - Ollama server URL (default: http://localhost:11434)</li>
+                <li><code>TELEGRAM_BOT_TOKEN</code> - Telegram bot token</li>
+                <li><code>DISCORD_BOT_TOKEN</code> - Discord bot token</li>
+            </ul>
+        </section>
+        
+        <section class="settings-section">
+            <h2>Available Tools</h2>
+            <ul class="tools-list">
+                <li><strong>execute_shell</strong> - Run shell commands</li>
+                <li><strong>read_file</strong> - Read file contents</li>
+                <li><strong>write_file</strong> - Write to files</li>
+                <li><strong>list_files</strong> - List directory contents</li>
+                <li><strong>web_search</strong> - Search the web</li>
+            </ul>
+        </section>
+        
+        <section class="settings-section">
+            <h2>Quick Commands</h2>
+            <div class="commands-list">
+                <code>nanobot onboard</code> - Initialize configuration<br>
+                <code>nanobot agent</code> - Start interactive chat<br>
+                <code>nanobot gateway</code> - Start WebSocket gateway<br>
+                <code>nanobot cron list</code> - List scheduled jobs
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+    .config-example pre {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+    }
+    
+    .provider-list, .env-list, .tools-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .provider-list li, .env-list li, .tools-list li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .commands-list {
+        font-family: monospace;
+        background: #f5f5f5;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+</style>

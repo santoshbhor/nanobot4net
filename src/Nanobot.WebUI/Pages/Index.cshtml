@@ -1,0 +1,175 @@
+@page "/"
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<div class="chat-container">
+    <div class="chat-header">
+        <h1>💬 Chat with Nanobot</h1>
+        <button id="clear-btn" class="btn-secondary">Clear History</button>
+    </div>
+    
+    <div id="messages" class="messages-container">
+        <div class="message system">
+            <div class="message-content">
+                <span class="typing-indicator">🤖 Nanobot is ready to chat...</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="input-container">
+        <textarea id="message-input" placeholder="Type your message..." rows="1"></textarea>
+        <button id="send-btn" class="btn-primary">Send</button>
+    </div>
+    
+    <div class="status-bar">
+        <span id="connection-status" class="status disconnected">⚫ Disconnected</span>
+        <span id="message-count">Messages: 0</span>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chathub")
+            .withAutomaticReconnect()
+            .build();
+
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const statusSpan = document.getElementById('connection-status');
+        const countSpan = document.getElementById('message-count');
+
+        let messageCount = 0;
+
+        // Connection state handlers
+        connection.onclose(() => {
+            statusSpan.className = 'status disconnected';
+            statusSpan.textContent = '⚫ Disconnected';
+        });
+
+        connection.onreconnecting(() => {
+            statusSpan.className = 'status connecting';
+            statusSpan.textContent = '🟡 Reconnecting...';
+        });
+
+        connection.onreconnected(() => {
+            statusSpan.className = 'status connected';
+            statusSpan.textContent = '🟢 Connected';
+        });
+
+        // Receive message handler
+        connection.on("ReceiveMessage", (message) => {
+            addMessage(message.role, message.content);
+        });
+
+        connection.on("HistoryCleared", () => {
+            messagesDiv.innerHTML = '';
+            messageCount = 0;
+            updateCount();
+            addMessage('system', 'Chat history cleared.');
+        });
+
+        // Add message to UI
+        function addMessage(role, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            
+            const avatar = role === 'user' ? '👤' : (role === 'system' ? '⚙️' : '🐈');
+            const time = new Date().toLocaleTimeString();
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${avatar}</div>
+                <div class="message-content">
+                    <div class="message-text">${escapeHtml(content)}</div>
+                    <div class="message-time">${time}</div>
+                </div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            messageCount++;
+            updateCount();
+        }
+
+        function updateCount() {
+            countSpan.textContent = `Messages: ${messageCount}`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML.replace(/\n/g, '<br>');
+        }
+
+        // Send message
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            
+            try {
+                await connection.invoke("SendMessage", message);
+            } catch (err) {
+                addMessage('system', `Error: ${err}`);
+            }
+        }
+
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+        
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        messageInput.addEventListener('input', () => {
+            messageInput.style.height = 'auto';
+            messageInput.style.height = Math.min(messageInput.scrollHeight, 150) + 'px';
+        });
+
+        clearBtn.addEventListener('click', async () => {
+            try {
+                await connection.invoke("ClearHistory");
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        // Auto-resize textarea
+        messageInput.style.height = 'auto';
+        messageInput.style.height = messageInput.scrollHeight + 'px';
+
+        // Connect
+        async function start() {
+            try {
+                await connection.start();
+                statusSpan.className = 'status connected';
+                statusSpan.textContent = '🟢 Connected';
+                
+                // Load history
+                try {
+                    const history = await connection.invoke("GetHistory");
+                    history.forEach(msg => addMessage(msg.role, msg.content));
+                } catch (err) {
+                    console.log('No history or error loading:', err);
+                }
+            } catch (err) {
+                console.error(err);
+                statusSpan.className = 'status disconnected';
+                statusSpan.textContent = '🔴 Connection failed - retrying...';
+                setTimeout(start, 3000);
+            }
+        }
+
+        start();
+    </script>
+}

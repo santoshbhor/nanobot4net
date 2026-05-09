@@ -44,6 +44,21 @@ A C# migration of the Python-based [nanobot](https://github.com/HKUDS/nanobot) p
 - `@hourly`, `@daily`, `@weekly`, `@monthly` shortcuts
 - CLI commands: `cron add`, `cron list`, `cron run`, `cron remove`
 
+## ✅ WebUI Added (ASP.NET Core)
+
+```bash
+# Start WebUI
+dotnet run --project src/Nanobot.WebUI
+
+# Open in browser: http://localhost:5000
+```
+
+Features:
+- Real-time chat with SignalR WebSockets
+- Message history per session
+- Clean, responsive UI
+- Dark mode support
+
 ## ❌ Remaining to Migrate
 
 ### High Priority
@@ -66,7 +81,6 @@ A C# migration of the Python-based [nanobot](https://github.com/HKUDS/nanobot) p
 - [ ] Memory system (Dream - two-stage memory)
 - [ ] Skills discovery and installation
 - [ ] Document reading (PDF, DOCX, XLSX, PPTX)
-- [ ] Web UI (React/TypeScript)
 - [ ] Security sandbox
 - [ ] Langfuse observability
 - [ ] LangSmith integration
