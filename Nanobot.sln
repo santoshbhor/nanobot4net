@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanobot.WebUI", "src\Nanobot.WebUI\Nanobot.WebUI.csproj", "{4A19E311-CFB1-491E-A7C2-869E4EE9BDEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanobot.Api", "src\Nanobot.Api\Nanobot.Api.csproj", "{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,11 +127,24 @@ Global
 		{4A19E311-CFB1-491E-A7C2-869E4EE9BDEB}.Release|x64.Build.0 = Release|Any CPU
 		{4A19E311-CFB1-491E-A7C2-869E4EE9BDEB}.Release|x86.ActiveCfg = Release|Any CPU
 		{4A19E311-CFB1-491E-A7C2-869E4EE9BDEB}.Release|x86.Build.0 = Release|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Debug|x64.Build.0 = Debug|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Debug|x86.Build.0 = Debug|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Release|x64.Build.0 = Release|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4A19E311-CFB1-491E-A7C2-869E4EE9BDEB} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{6D7F3274-D5D7-41B9-87CF-7DE7D37E9BAD} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
