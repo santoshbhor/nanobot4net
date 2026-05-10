@@ -46,7 +46,7 @@ app.MapHub<ChatHub>("/chathub", options =>
     options.Transports = HttpTransportType.WebSockets;
 });
 
-Console.WriteLine("🐈 Nanobot WebUI starting...");
-Console.WriteLine("   Open http://localhost:5000 in your browser");
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5001";
+Console.WriteLine($"🐈 Nanobot WebUI starting on http://localhost:{port}");
 
-app.Run("http://0.0.0.0:5000");
+app.Run($"http://0.0.0.0:{port}");

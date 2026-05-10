@@ -47,13 +47,14 @@ app.UseHttpsRedirection();
 app.UseCors();
 app.MapControllers();
 
-Console.WriteLine("🐈 Nanobot API Server starting...");
-Console.WriteLine("   API Docs: http://localhost:5000/swagger");
-Console.WriteLine("   Health:   http://localhost:5000/health");
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5002";
+Console.WriteLine($"🐈 Nanobot API Server starting on http://localhost:{port}");
+Console.WriteLine($"   API Docs: http://localhost:{port}/swagger");
+Console.WriteLine($"   Health:   http://localhost:{port}/health");
 Console.WriteLine();
 Console.WriteLine("Endpoints:");
 Console.WriteLine("   POST /v1/chat/completions");
 Console.WriteLine("   GET  /v1/models");
 Console.WriteLine("   POST /v1/embeddings");
 
-app.Run("http://0.0.0.0:5000");
+app.Run($"http://0.0.0.0:{port}");
